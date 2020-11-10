@@ -30,7 +30,7 @@ public class CameraController : MonoBehaviour
 
             if(shakeTime > 0)
             {
-                Debug.Log("shake time = " + shakeTime);
+                //Debug.Log("shake time = " + shakeTime);
                 shakeTime--;
                 cam.position = new Vector3(camX + Random.Range(-.1f, .1f), camY + Random.Range(-.1f, .1f), -10);
             }

@@ -652,6 +652,28 @@ MonoBehaviour:
   l3Txt: {fileID: 1577058356}
   l4Txt: {fileID: 384968187}
   lines2Output: []
+  mazeX: 0
+  mazeY: 0
+  wallPrefab: {fileID: 2552032977892024591, guid: 03978a4c34ce1d343a6343859cbb7eac,
+    type: 3}
+  tilePrefab:
+  - {fileID: 3196763147925329217, guid: 0ea0abf4c752259408b61f16d7041a92, type: 3}
+  - {fileID: 1874101534821127910, guid: d26c465bea39df3478f1350c5b965c5b, type: 3}
+  - {fileID: 8891469424422127316, guid: 90ffc682940a64e4daa38ac15fd4f73f, type: 3}
+  - {fileID: 127849046032106393, guid: e1b83fc75892d1649aab510d12a27dcc, type: 3}
+  - {fileID: 5286543136713671053, guid: d645694356aac324ca0a522fe1aabc05, type: 3}
+  - {fileID: 8761872380870790628, guid: 095f92d368769f449ba8e18840812809, type: 3}
+  - {fileID: 1670471090846962593, guid: 514fe74c6c65a7442a960d14550fcbaa, type: 3}
+  - {fileID: 3874892732128319392, guid: 59a0bf382a7ee9745b727b26e22dd63f, type: 3}
+  tileMaskPrefab:
+  - {fileID: 6093468292477043223, guid: cdcd7d3ba23868d429429b30ceeb80fe, type: 3}
+  - {fileID: 1826887798809888971, guid: 9042b507fe38d2849b038b3eaff64c2c, type: 3}
+  - {fileID: 5522743538986576285, guid: bfd726906b4a3434fa4ed3c2c064fa89, type: 3}
+  - {fileID: 7153814317541950671, guid: 71a1b5de3bbd8cd4c8895133b18c2e23, type: 3}
+  - {fileID: 5692714017096515705, guid: 516cdc872e7d9be439402302e27c572c, type: 3}
+  - {fileID: 3294655377551268651, guid: 8538329e520342643b3ce03b75f313e1, type: 3}
+  - {fileID: 1814712818957264435, guid: 94dca22f6d0a2b5499b2bd7b893b3f6d, type: 3}
+  - {fileID: 2692632263031490521, guid: 16b2613333b806d42b82e133f26cb431, type: 3}
 --- !u!4 &1299773441
 Transform:
   m_ObjectHideFlags: 0

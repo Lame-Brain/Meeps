@@ -3,25 +3,30 @@ using System.Collections.Generic;
 
 public class Room
 {
+    public string name;
     public int width, height;
-    public int[,] tile;
+    public int[,] tile, mask;
     public float r, g, b;
     //************************************************
     private int lowerBound = 150, upperBound = 500;//*
     //************************************************
 
-    public Room(int xInput, int yInput)
+    public Room(int xInput, int yInput, string nameInput)
     {
+        name = nameInput;
         if (xInput < 3) xInput = 3; if (yInput < 3) yInput = 3; // Room cannot be less than 3x3
         width = xInput; height = yInput;
         tile = new int[width+1, height+1]; //initalize tile array
-        for(int y = 1; y < height-1; y++) // this sets the floors
+        mask = new int[width + 1, height + 1]; //initalize mask array
+        for (int y = 1; y < height; y++) // this sets the floors
         {
-            for(int x = 1; x < width-1; x++)
+            for(int x = 1; x < width; x++)
             {
-                int r = UnityEngine.Random.Range(0, 23); //8 + 8 + 7
-                if (r > 7) r -= 8; //This should bias it toward blank tiles of different shades.
-                tile[x, y] = r;
+                int r = UnityEngine.Random.Range(0, 8), m = UnityEngine.Random.Range(0, 100);
+                tile[x, y] = r; //Set base tile
+                r = UnityEngine.Random.Range(0, 11);
+                mask[x, y] = 0; //Mask defaults to 0
+                if (m < 8 && m > 0) mask[x, y] = m; //Set mask
             }
         }
         //this sets the walls
@@ -35,6 +40,7 @@ public class Room
             tile[x, 0] = 99;
             tile[x, height] = 99;
         }
+        tile[width, height] = 99;
         //Determine Color
         bool done = false; int i = 0;
         while (!done)

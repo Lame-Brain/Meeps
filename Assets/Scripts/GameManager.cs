@@ -15,8 +15,13 @@ public class GameManager : MonoBehaviour
     private string line1, line2, line3, line4;
     private int infoboxUpdateSpeed = 1, nextInfoboxUpdate, timesWithoutUpdate = 0;
 
+    //Map Navigation
+    public int mazeX, mazeY;
 
-
+    //Room Drawing
+    public GameObject wallPrefab;
+    public GameObject[] tilePrefab, tileMaskPrefab;
+    
     //*******************************************************************************************************************************************************************************
     //                                    UNITY METHODS
 
@@ -34,7 +39,9 @@ public class GameManager : MonoBehaviour
     {
         for (int a = 3; a > 0; a--) Output("" + a);
         Output("the end", "shake");
-        Room myroom = new Room(8, 8);
+        Map maze = new Map(9,9);
+        mazeX = Random.Range(0, 8); mazeY = Random.Range(0, 8);
+        DrawRoom();
     }
 
     void Update() // <------------------------------------------------------------UPDATE
@@ -86,6 +93,23 @@ public class GameManager : MonoBehaviour
     //Draw Rooms
     public void DrawRoom()
     {
-
+        Debug.Log("Room = " + Map.MAP.room[mazeX,mazeY].name);
+        //Clear any existing room data
+        GameObject[] tileObjs = GameObject.FindGameObjectsWithTag("Tile");
+        foreach(GameObject foundObj in tileObjs) Destroy(foundObj);
+        // Draw the room
+        GameObject go = null; int t = 0, m = 0;
+        for(int y = 0; y <= Map.MAP.room[mazeX, mazeY].height; y++)
+        {
+            for (int x = 0; x <= Map.MAP.room[mazeX, mazeY].width; x++)
+            {
+                t = Map.MAP.room[mazeX, mazeY].tile[x, y]; m = Map.MAP.room[mazeX, mazeY].mask[x, y];
+                if (t == 99) go = Instantiate(wallPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                if (t < 99) go = Instantiate(tilePrefab[t], new Vector3(x, y, 0), Quaternion.identity);
+                go.GetComponent<SpriteRenderer>().color = new Color(Map.MAP.room[mazeX, mazeY].r / 255, Map.MAP.room[mazeX, mazeY].g / 255, Map.MAP.room[mazeX, mazeY].b / 255, 255);
+                go = Instantiate(tileMaskPrefab[m], new Vector3(x, y, 0), Quaternion.identity);
+                go.GetComponent<SpriteRenderer>().color = new Color(Map.MAP.room[mazeX, mazeY].r / 255, Map.MAP.room[mazeX, mazeY].g / 255, Map.MAP.room[mazeX, mazeY].b / 255, 255);
+            }
+        }
     }
 }

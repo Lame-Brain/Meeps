@@ -5,7 +5,7 @@ public class Map
 {
     public static Map MAP;
     public int width, height;
-    public Room[,] map;
+    public Room[,] room;
 
     public Map(int inputX, int inputY)
     {
@@ -20,12 +20,12 @@ public class Map
 
     public void NewMap()
     {
-        map = new Room[width, height];
+        room = new Room[width, height];
         for(int y = 0; y < height; y++)
         {
             for(int x = 0; x < width; x++)
             {
-                map[x, y] = new Room(UnityEngine.Random.Range(8,16), UnityEngine.Random.Range(8,16));
+                room[x, y] = new Room(UnityEngine.Random.Range(8,16), UnityEngine.Random.Range(8,16), "Room"+x.ToString()+y.ToString());
             }
         }
     }
