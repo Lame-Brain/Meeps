@@ -395,6 +395,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeTime: 0
+  speed: 0.05
+  zoomSpeed: 0.01
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -446,7 +448,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 3, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -671,9 +673,13 @@ MonoBehaviour:
   - {fileID: 5522743538986576285, guid: bfd726906b4a3434fa4ed3c2c064fa89, type: 3}
   - {fileID: 7153814317541950671, guid: 71a1b5de3bbd8cd4c8895133b18c2e23, type: 3}
   - {fileID: 5692714017096515705, guid: 516cdc872e7d9be439402302e27c572c, type: 3}
+  - {fileID: 2692632263031490521, guid: 16b2613333b806d42b82e133f26cb431, type: 3}
   - {fileID: 3294655377551268651, guid: 8538329e520342643b3ce03b75f313e1, type: 3}
   - {fileID: 1814712818957264435, guid: 94dca22f6d0a2b5499b2bd7b893b3f6d, type: 3}
-  - {fileID: 2692632263031490521, guid: 16b2613333b806d42b82e133f26cb431, type: 3}
+  meep: {fileID: 7825459116645595346, guid: e938c4949dad81d4ca4ba38d40bdd72f, type: 3}
+  goob: {fileID: 3854591286216642459, guid: ea62267cb4dcff149a4f2877c90c9c4d, type: 3}
+  wiiz: {fileID: 4507921126670101966, guid: 41bceecda5f21bb4b9927073110dce80, type: 3}
+  poof: {fileID: 1176311011017805036, guid: cfd919a00fda09a41bc6774e26e5d2e0, type: 3}
 --- !u!4 &1299773441
 Transform:
   m_ObjectHideFlags: 0

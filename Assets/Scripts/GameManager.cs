@@ -21,7 +21,13 @@ public class GameManager : MonoBehaviour
     //Room Drawing
     public GameObject wallPrefab;
     public GameObject[] tilePrefab, tileMaskPrefab;
-    
+
+    //MOBS
+    public GameObject meep, goob, wiiz;
+
+    //Misc
+    public GameObject poof;
+
     //*******************************************************************************************************************************************************************************
     //                                    UNITY METHODS
 
@@ -37,11 +43,16 @@ public class GameManager : MonoBehaviour
 
     void Start() // <------------------------------------------------------------START
     {
-        for (int a = 3; a > 0; a--) Output("" + a);
-        Output("the end", "shake");
         Map maze = new Map(9,9);
         mazeX = Random.Range(0, 8); mazeY = Random.Range(0, 8);
         DrawRoom();
+
+        //Debug Start
+        //for (int a = 3; a > 0; a--) Output("" + a);
+        //Output("the end", "shake");
+        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
+        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
+        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
     }
 
     void Update() // <------------------------------------------------------------UPDATE
@@ -108,8 +119,12 @@ public class GameManager : MonoBehaviour
                 if (t < 99) go = Instantiate(tilePrefab[t], new Vector3(x, y, 0), Quaternion.identity);
                 go.GetComponent<SpriteRenderer>().color = new Color(Map.MAP.room[mazeX, mazeY].r / 255, Map.MAP.room[mazeX, mazeY].g / 255, Map.MAP.room[mazeX, mazeY].b / 255, 255);
                 go = Instantiate(tileMaskPrefab[m], new Vector3(x, y, 0), Quaternion.identity);
-                go.GetComponent<SpriteRenderer>().color = new Color(Map.MAP.room[mazeX, mazeY].r / 255, Map.MAP.room[mazeX, mazeY].g / 255, Map.MAP.room[mazeX, mazeY].b / 255, 255);
+                if (m > 0 && m < 6) go.GetComponent<SpriteRenderer>().color = new Color(Map.MAP.room[mazeX, mazeY].r / 255, Map.MAP.room[mazeX, mazeY].g / 255, Map.MAP.room[mazeX, mazeY].b / 255, 255);
             }
         }
+    }
+    public Vector2 GetRandomRoomCoords()
+    {        
+        return new Vector2(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height));
     }
 }

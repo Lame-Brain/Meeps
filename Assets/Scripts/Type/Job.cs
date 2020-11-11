@@ -4,5 +4,7 @@ using System.Collections.Generic;
 public class Job
 {
     public string name;
-    public float targetX, targetY, targetMap;
+    public float time;
+    public UnityEngine.Vector2 target;
+    public int targetMap;
 }
