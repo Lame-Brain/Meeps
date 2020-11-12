@@ -18,7 +18,8 @@ public class CameraController : MonoBehaviour
         if (this.GetComponent<Camera>()) { cam = this.transform; isCamera = true; }
         if (!this.GetComponent<Camera>()) isCamera = false;
         zoom = cam.GetComponent<Camera>().orthographicSize;
-    }
+        Camera.main.backgroundColor = new Color(0, 0, 100, 255);        
+    }    
 
     // Update is called once per frame
     void Update()

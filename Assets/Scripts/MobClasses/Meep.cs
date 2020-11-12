@@ -29,7 +29,7 @@ public class Meep : MOB
         armor = 0;
         health = Random.Range(10f, 20f);
         wounds = 0;
-        energy = Random.Range(10f, 20f);
+        energy = Random.Range(20f, 30f);
         fatigue = 0;
         buildSkill = Random.Range(5f, 10f);
         workSkill = Random.Range(5f, 10f);
@@ -38,9 +38,10 @@ public class Meep : MOB
         state = 0;
         //Find Self
         self = this.GetComponentInParent<Transform>();
-        //self.gameObject.SetActive(false);
+
 
         //spawn in Meep
+        self.localScale = new Vector2(0, 0);
         Instantiate(GameManager.GAME.poof, self.position, Quaternion.identity);
         Camera.main.GetComponent<CameraController>().Camera2Target(self.position.x, self.position.y);
     }
@@ -49,11 +50,11 @@ public class Meep : MOB
     void Update()
     {
         //Grow Meep at beginning of life
-        if (!grown) self.localScale = new Vector2(self.localScale.x + .1f, self.localScale.y + .1f);
+        if (!grown) self.localScale = new Vector2(self.localScale.x + .01f, self.localScale.y + .01f);
         if (!grown && self.localScale.x > 1) { self.localScale = new Vector2(1, 1); grown = true; }
 
         //Animaton Special: Blink
-        if(!sleeping) randomness = Random.Range(0, 101); if (randomness == 50) self.GetComponent<Animator>().SetBool("Meep_Blink", true);
+        if(!sleeping) randomness = Random.Range(0, 201); if (randomness == 50) self.GetComponent<Animator>().SetBool("Meep_Blink", true);
 
 
         //Animation update        

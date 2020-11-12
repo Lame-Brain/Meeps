@@ -7,9 +7,12 @@ public class GameManager : MonoBehaviour
 {
     //STATIC
     public static GameManager GAME;
+    public static UIController UIX;
+    public static MouseCursorControl MOUSE;
+    public static List<Job> ORDERS = new List<Job>();
 
     //INFOBOX
-    public GameObject InfoBoxPanel;
+    public GameObject CanvasMain;
     public Text l1Txt, l2Txt, l3Txt, l4Txt;
     public List<string> lines2Output = new List<string>();
     private string line1, line2, line3, line4;
@@ -25,8 +28,17 @@ public class GameManager : MonoBehaviour
     //MOBS
     public GameObject meep, goob, wiiz;
 
+    //Mouse Interface
+    public Vector2 mousePos;
+    public Vector2 mousePosRaw;
+    public bool mPosValidated = false;
+
+    //Buildings
+    public string buildMode = "none";
+    public Transform mark;
+
     //Misc
-    public GameObject poof;
+    public GameObject poof;    
 
     //*******************************************************************************************************************************************************************************
     //                                    UNITY METHODS
@@ -39,20 +51,13 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(GAME);
         }
         else Destroy(this);
+        UIX = CanvasMain.GetComponent<UIController>();
+        MOUSE = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseCursorControl>();
     }
 
-    void Start() // <------------------------------------------------------------START
+    void Start() 
     {
-        Map maze = new Map(9,9);
-        mazeX = Random.Range(0, 8); mazeY = Random.Range(0, 8);
-        DrawRoom();
-
-        //Debug Start
-        //for (int a = 3; a > 0; a--) Output("" + a);
-        //Output("the end", "shake");
-        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
-        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
-        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
+        InitializeGame(); // <------------------------------------------------------------START
     }
 
     void Update() // <------------------------------------------------------------UPDATE
@@ -62,6 +67,13 @@ public class GameManager : MonoBehaviour
         {
             nextInfoboxUpdate = Mathf.FloorToInt(Time.time) + infoboxUpdateSpeed;
             InfoBoxLogic();
+        }
+
+        //Building
+        if (buildMode == "Hut" && mPosValidated)
+        {
+            mPosValidated = false;
+            Instantiate(mark, mousePos, Quaternion.identity);
         }
     }
     //*******************************************************************************************************************************************************************************
@@ -74,7 +86,7 @@ public class GameManager : MonoBehaviour
         {
             //setup infobox
             timesWithoutUpdate = 0;
-            InfoBoxPanel.SetActive(true);
+            UIX.InfoBoxPanel.SetActive(true);
             //look for commands
             string input = lines2Output[0];
             if (input.Length > 0 && input.Substring(0, 1) == "#")
@@ -94,8 +106,8 @@ public class GameManager : MonoBehaviour
             lines2Output.RemoveAt(0);
         }
         else timesWithoutUpdate++;
-        if (timesWithoutUpdate > (infoboxUpdateSpeed * 2)) InfoBoxPanel.SetActive(false);
-        if (InfoBoxPanel.activeInHierarchy && line1 == "" && line2 == "" && line3 == "" && line4 == "") InfoBoxPanel.SetActive(false);
+        if (timesWithoutUpdate > (infoboxUpdateSpeed * 2)) UIX.InfoBoxPanel.SetActive(false);
+        if (UIX.InfoBoxPanel.activeInHierarchy && line1 == "" && line2 == "" && line3 == "" && line4 == "") UIX.InfoBoxPanel.SetActive(false);
         l1Txt.text = line1; l2Txt.text = line2; l3Txt.text = line3; l4Txt.text = line4;
     }
     public void Output(string s) { lines2Output.Add(s); }
@@ -126,5 +138,29 @@ public class GameManager : MonoBehaviour
     public Vector2 GetRandomRoomCoords()
     {        
         return new Vector2(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height));
+    }
+
+    public void BuildHutButton()
+    {
+        MOUSE.EnterValidateMode();
+        buildMode = "Hut";
+        mPosValidated = false;
+    }
+
+    //**********************************************************************************************************************
+    //******************************************** THIS IS WHERE IT STARTS *************************************************
+    //**********************************************************************************************************************
+    public void InitializeGame()
+    {
+        Map maze = new Map(9, 9);
+        mazeX = Random.Range(0, 8); mazeY = Random.Range(0, 8);
+        ORDERS.Clear();
+        DrawRoom();
+
+        //for (int a = 3; a > 0; a--) Output("" + a);
+        //Output("the end", "shake");
+        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
+        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
+        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
     }
 }

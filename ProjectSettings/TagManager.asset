@@ -14,7 +14,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Mouse
   - 
   - 
   - 
@@ -41,4 +41,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Gameworld
+    uniqueID: 1306249721
+    locked: 0
+  - name: UI
+    uniqueID: 2440521569
+    locked: 0
+  - name: Mouse
+    uniqueID: 1094022317
     locked: 0
