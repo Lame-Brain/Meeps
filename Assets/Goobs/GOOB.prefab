@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 8891915342840174517}
   m_Layer: 0
   m_Name: GOOB
-  m_TagString: Untagged
+  m_TagString: Goob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -281,7 +281,8 @@ MonoBehaviour:
   moveX: 0
   moveY: 0
   state: 0
-  self: {fileID: 0}
+  room: {x: 0, y: 0}
+  self: {fileID: 2676119772211786910}
   walking: 0
   sleeping: 0
 --- !u!95 &8891915342840174517

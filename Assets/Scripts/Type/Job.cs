@@ -5,6 +5,7 @@ public class Job
 {
     public string name;
     public float time;
-    public UnityEngine.Vector2 target;
-    public int targetMap;
+    public UnityEngine.Vector2 targetCoord;
+    public UnityEngine.GameObject targetObj;
+    public UnityEngine.Vector2Int targetRoom;
 }

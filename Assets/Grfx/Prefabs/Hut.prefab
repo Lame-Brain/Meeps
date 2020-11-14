@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2320347659392320716}
   - component: {fileID: 2320347659392320717}
+  - component: {fileID: 7424435062256952305}
   m_Layer: 0
   m_Name: Hut
-  m_TagString: Untagged
+  m_TagString: Hut
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,3 +82,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7424435062256952305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2320347659392320718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 997466270a91cb04e82a8b89ace47180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  damage: 0
+  built: 0
+  rCost: 5
+  bCost: 5
+  gCost: 5
+  flipped: 0
+  self: {fileID: 0}

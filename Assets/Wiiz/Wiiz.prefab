@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 2665966547598458614}
   m_Layer: 0
   m_Name: Wiiz
-  m_TagString: Untagged
+  m_TagString: Wiiz
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -379,6 +379,7 @@ MonoBehaviour:
   moveX: 0
   moveY: 0
   state: 0
-  self: {fileID: 0}
+  room: {x: 0, y: 0}
+  self: {fileID: 4507921126670101963}
   walking: 0
   sleeping: 0

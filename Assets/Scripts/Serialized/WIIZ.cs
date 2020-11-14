@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class WIIZ : MOB
 {
     // Start is called before the first frame update

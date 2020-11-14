@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager GAME;
     public static UIController UIX;
     public static MouseCursorControl MOUSE;
-    public static List<Job> ORDERS = new List<Job>();
+    public static Room THIS_ROOM;
+    public static SaveSlot FILE;
 
     //INFOBOX
     public GameObject CanvasMain;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
     //Buildings
     public string buildMode = "none";
     public Transform mark;
+    public GameObject hutPF;
 
     //Misc
     public GameObject poof;    
@@ -53,11 +55,13 @@ public class GameManager : MonoBehaviour
         else Destroy(this);
         UIX = CanvasMain.GetComponent<UIController>();
         MOUSE = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseCursorControl>();
+        FILE = SaveAndLoad.saveSlot[0] = new SaveSlot(); //<---For Debug purposes. In release, this will be set by main menu;
     }
 
     void Start() 
     {
         InitializeGame(); // <------------------------------------------------------------START
+        Debug.Log(System.DateTime.Now.ToString());
     }
 
     void Update() // <------------------------------------------------------------UPDATE
@@ -74,6 +78,10 @@ public class GameManager : MonoBehaviour
         {
             mPosValidated = false;
             Instantiate(mark, mousePos, Quaternion.identity);
+            GameObject hut = Instantiate(hutPF, mousePos, Quaternion.identity); hut.transform.localScale = new Vector3(1, 0, 0);
+            hut.GetComponent<Building>().InitBuilding();
+            Job newJob = new Job(); newJob.name = "Build"; newJob.targetObj = hut;  newJob.targetCoord = hut.transform.position; newJob.targetRoom = new Vector2Int(mazeX, mazeY);
+            THIS_ROOM.Orders.Add(newJob);
         }
     }
     //*******************************************************************************************************************************************************************************
@@ -134,6 +142,20 @@ public class GameManager : MonoBehaviour
                 if (m > 0 && m < 6) go.GetComponent<SpriteRenderer>().color = new Color(Map.MAP.room[mazeX, mazeY].r / 255, Map.MAP.room[mazeX, mazeY].g / 255, Map.MAP.room[mazeX, mazeY].b / 255, 255);
             }
         }
+        //Mobs
+        foreach (GameObject mob in GameManager.FILE.MasterMobList)
+        {
+            if (mob.tag == "Goob") if(mob.GetComponent<GOOB>().room == Map.MAP.room[mazeX, mazeY].room) { mob.SetActive(true); } else { mob.SetActive(false); }
+            if (mob.tag == "Meep") if(mob.GetComponent<Meep>().room == Map.MAP.room[mazeX, mazeY].room) { mob.SetActive(true); } else { mob.SetActive(false); }
+            if (mob.tag == "WIIZ") if(mob.GetComponent<WIIZ>().room == Map.MAP.room[mazeX, mazeY].room) { mob.SetActive(true); } else { mob.SetActive(false); }
+
+            if (mob.transform.position.x == 0 && mob.transform.position.y == 0)
+            {
+                if (mob.tag == "Goob") mob.GetComponent<GOOB>().Spawn(1, 1); //<----Need to figure out where to spawn Goobs
+                if (mob.tag == "Meep") mob.GetComponent<Meep>().Spawn(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height));
+                if (mob.tag == "Wiiz") mob.GetComponent<WIIZ>().Spawn(1, 1);//<----Need to figure out where to spawn Wiizs
+            }
+        }
     }
     public Vector2 GetRandomRoomCoords()
     {        
@@ -154,13 +176,16 @@ public class GameManager : MonoBehaviour
     {
         Map maze = new Map(9, 9);
         mazeX = Random.Range(0, 8); mazeY = Random.Range(0, 8);
-        ORDERS.Clear();
-        DrawRoom();
+        THIS_ROOM = Map.MAP.room[mazeX, mazeY];
+        THIS_ROOM.Clear_Orders();
+        FILE.AddMeep(); FILE.AddMeep(); FILE.AddMeep();
+        DrawRoom();        
 
         //for (int a = 3; a > 0; a--) Output("" + a);
         //Output("the end", "shake");
-        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
-        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
-        Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
+        //Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
+        //Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
+        //Instantiate(meep, new Vector3(Random.Range(1, Map.MAP.room[mazeX, mazeY].width), Random.Range(1, Map.MAP.room[mazeX, mazeY].height), 0), Quaternion.identity);
+
     }
 }

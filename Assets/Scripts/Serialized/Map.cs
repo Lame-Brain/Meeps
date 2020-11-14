@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Map
 {
     public static Map MAP;
@@ -25,7 +26,7 @@ public class Map
         {
             for(int x = 0; x < width; x++)
             {
-                room[x, y] = new Room(UnityEngine.Random.Range(8,16), UnityEngine.Random.Range(8,16), "Room"+x.ToString()+y.ToString());
+                room[x, y] = new Room(UnityEngine.Random.Range(8,16), UnityEngine.Random.Range(8,16), "Room"+x.ToString()+y.ToString(), x, y);                
             }
         }
     }

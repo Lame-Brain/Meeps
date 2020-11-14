@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class GOOB : MOB
 {
     // Start is called before the first frame update
